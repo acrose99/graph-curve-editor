@@ -14,7 +14,7 @@ import LineCurve3D from './curves/LineCurve3D'
 import QuadraticBezierCurve from './curves/QuadraticBezierCurve'
 import QuadraticBezierCurve3D from './curves/QuadraticBezierCurve3D'
 import SplineCurve from './curves/SplineCurve'
-
+import DebugGrid from './DebugGrid'
 
 
 
@@ -85,6 +85,7 @@ function Curves() {
 function App() {
   return (
     <Canvas camera={{ position: [0, 0, 5] }}>
+      <DebugGrid />
       <Curves />
       <OrbitControls />
       <axesHelper scale={2} position={[1, -2, 0]} /> {/* <-- TODO: Adjust based on position */}
