@@ -9,8 +9,15 @@ import { folder, button, useControls } from 'leva'
 import Point from '../point'
 
 export default function LineCurve2D() {
-  const { v1, v2 } = useControls({
+  const { Color, z, v1, v2 } = useControls({
     LineCurve2D: folder({
+      Color: {
+        value: '#ff0000'
+      },
+      z : {
+        value: 0,
+        step: 1
+      },
       v1: {
         value: 0,
         step: 0.5
@@ -22,18 +29,21 @@ export default function LineCurve2D() {
     })
   })
   const curve = new THREE.LineCurve(new THREE.Vector2(v1, v2))
-  const [pointPosition, setPointPosition] = useState(() => new THREE.Vector3(v1, v2, 0))
+  const [pointPosition, setPointPosition] = useState(() => new THREE.Vector3(v1, v2, z))
   useFrame(({ clock }) => {
-    setPointPosition((ref.current.position.x += 0.01 * clock.getDelta(1)), (ref.current.position.y -= 0.01 * clock.getDelta(1)), 0)
+    let point = points[Math.floor((clock.getElapsedTime() * 4) % 100)]
+    let px = point.x
+    let py = point.y
+    setPointPosition(new THREE.Vector3(px, py, z))
   })
-  const points = curve.getPoints(50)
+  const points = curve.getPoints(100)
   const geometry = new THREE.BufferGeometry().setFromPoints(points)
-  const material = new THREE.LineBasicMaterial({ color: 'black' })
+  const material = new THREE.LineBasicMaterial({ color: Color })
   const ref = useRef()
   return (
     <mesh>
-      <line ref={ref} geometry={geometry} material={material}></line>
-      <Point args={[.05, 8]} position={pointPosition}  />
+      <lineLoop position={[0,0,z]} ref={ref} geometry={geometry} material={material}></lineLoop>
+      <Point args={[0.05, 8]} position={pointPosition} />
     </mesh>
   )
 }

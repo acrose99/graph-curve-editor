@@ -15,7 +15,7 @@ import QuadraticBezierCurve from './curves/QuadraticBezierCurve'
 import QuadraticBezierCurve3D from './curves/QuadraticBezierCurve3D'
 import SplineCurve from './curves/SplineCurve'
 import DebugGrid from './DebugGrid'
-
+import AxesHelper from './AxesHelper' 
 
 
 //TOD Redo with DREI LINES 
@@ -44,31 +44,9 @@ function Curves() {
     setN(n)
     console.log(n)
   }
-  const { defaultCurve } = useControls({
+  const { Curve} = useControls({
     // addCurve: button(() => changeN((n) => n + 1)),
-    defaultCurve: {
-      options: {
-        'Ellipse Curve': <EllipseCurve />,
-        'Line Curve': <LineCurve2D />,
-        'Line Curve 3D': <LineCurve3D />,
-        'Spline Curve': <SplineCurve />,
-        'Catmull Rom Curve 3D': <CatmullRomCurve3 />,
-        'Cubic Bezier Curve': <CubicBezierCurve />,
-        'Cubic Bezier Curve 3D': <CubicBezierCurve3D />,
-        'Quadratic Bezier Curve': <QuadraticBezierCurve />,
-        'Quadratic Bezier Curve 3D': <QuadraticBezierCurve3D />,
-        None: null
-      }
-    }
-    // Curve2: {
-    //   options: {
-    //     None: null,
-    //     'Ellipse Curve': <EllipseCurve />,
-    //     'Line Curve': <LineCurve2D />,
-    //     'Line Curve 3D': <LineCurve3D />,
-    //     'Spline Curve': <SplineCurve />
-    //   }
-    // }
+    Curve: curve,
   })
   // console.log(values.Curve0)
   // console.log(values)
@@ -77,18 +55,17 @@ function Curves() {
   // }
   return (
     <>
-      {defaultCurve}
-      {/* {values.Curve0} */}
+      {Curve}
     </>
   )
 }
 function App() {
   return (
     <Canvas camera={{ position: [0, 0, 5] }}>
-      <DebugGrid />
       <Curves />
+      <AxesHelper />
+      <DebugGrid />
       <OrbitControls />
-      <axesHelper scale={2} position={[1, -2, 0]} /> {/* <-- TODO: Adjust based on position */}
     </Canvas>
   )
 }

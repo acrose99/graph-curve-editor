@@ -7,9 +7,12 @@ import { useHelper, OrbitControls, QuadraticBezierLine } from '@react-three/drei
 import '../styles.css'
 import { folder, button, useControls } from 'leva'
 import Point from '../point'
-export default function QuadraticBezierCurve() {
-  const {startPoint, midPoint, endPoint } = useControls({
-    QuadraticBezierCurve: folder({
+export default function QuadraticBezierCurve() { //UNDO DREI
+  const {Color, startPoint, midPoint, endPoint } = useControls({
+    QuadraticBezierCurve3D: folder({
+      Color: {
+        value: '#ff0000'
+      },
       startPoint: {
         x: -1,
         y: 1,
@@ -33,10 +36,10 @@ export default function QuadraticBezierCurve() {
         start={[startPoint.x, startPoint.y, startPoint.z]}
         mid={[midPoint.x, midPoint.y, midPoint.z]}
         end={[endPoint.x, endPoint.y, endPoint.z]}
-        color="black"
+        color={Color}
       />
     ),
-    [startPoint, midPoint, endPoint]
+    [startPoint, midPoint, endPoint, Color]
   )
   return <>{curve}</>
 }

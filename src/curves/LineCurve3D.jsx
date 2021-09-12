@@ -8,8 +8,11 @@ import '../styles.css'
 import { folder, button, useControls } from 'leva'
 import Point from '../point'
 export default function LineCurve3D() {
-  const { v1, v2, z } = useControls({
+  const {Color, v1, v2, z } = useControls({
     LineCurve3D: folder({
+      Color: {
+        value: '#ff0000'
+      },
       v1: {
         value: 0,
         step: 0.5
@@ -37,15 +40,13 @@ export default function LineCurve3D() {
     setPointPosition(() => new THREE.Vector3(px, py, pz))
   })
   const geometry = new THREE.BufferGeometry().setFromPoints(points)
-  const material = new THREE.LineBasicMaterial({ color: 'black' })
+  const material = new THREE.LineBasicMaterial({ color: Color })
   return (
     <>
       <mesh ref={ref}>
         <line geometry={geometry} material={material}></line>
-        <axesHelper scale={20} position={[-10, -10, 0]} /> {/* <-- TODO: Adjust based on position */}
       </mesh>
       <Point args={[.05, 8]} position={pointPosition} />
-      <OrbitControls />
     </>
   )
 }

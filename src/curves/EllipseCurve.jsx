@@ -6,10 +6,16 @@ import { useHelper, OrbitControls } from '@react-three/drei'
 import '../styles.css'
 import { folder, button, useControls } from 'leva'
 import Point from '../point'
-export default function EllipseCurve() {
+export default function EllipseCurve(props) {
   //TODO: Add notice about ArcCurve
-  const { ax, ay, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation } = useControls({
+  const { Color, z, ax, ay, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation } = useControls({
     EllipseCurve: folder({
+      Color: {
+        value: '#ff0000'
+      },
+      z: {
+        value: 0
+      },
       ax: {
         value: 0,
         step: 1
@@ -39,7 +45,7 @@ export default function EllipseCurve() {
         value: 0,
         step: Math.PI * 0.25
       } // rotation angle of the curve in radians
-    })
+    }, {collapsed: true })
   })
   const curve = new THREE.EllipseCurve(
     ax,
@@ -53,19 +59,20 @@ export default function EllipseCurve() {
   )
   const ref = useRef()
   const points = curve.getPoints(100)
-  const [pointPosition, setPointPosition] = useState(() => new THREE.Vector3(ax, ay, 0))
+  const [pointPosition, setPointPosition] = useState(() => new THREE.Vector3(ax, ay, z))
   useFrame(({ clock }) => {
     let point = points[Math.floor((clock.getElapsedTime() * 4) % 100)]
     let px = point.x
     let py = point.y
-    setPointPosition(() => new THREE.Vector3(px, py, 0))
+    setPointPosition(() => new THREE.Vector3(px, py, z))
   })
   const geometry = new THREE.BufferGeometry().setFromPoints(points)
-  const material = new THREE.LineBasicMaterial({ color: 'black' })
+  // eslint-disable-next-line react/prop-types
+  const material = new THREE.LineBasicMaterial({ color: Color })
   const ellipseCurve = useMemo(
     () => (
       <>
-        <mesh ref={ref}>
+        <mesh position={[0,0,z]} ref={ref}>
           <line geometry={geometry} material={material}></line>
         </mesh>
       </>
