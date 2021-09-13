@@ -7,25 +7,36 @@ import { useHelper, OrbitControls } from '@react-three/drei'
 import '../styles.css'
 import { folder, button, useControls } from 'leva'
 import Point from '../point'
+import * as literals from '../literals'
 
 export default function LineCurve2D() {
+  function copyComponent(Color, z, v1, v2) {
+    // console.log(Color, z, ax, ay, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation)
+    alert(literals.lineCurve2D({ Color, z, v1, v2 }))
+  }
   const { Color, z, v1, v2 } = useControls({
-    LineCurve2D: folder({
-      Color: {
-        value: '#ff0000'
+    LineCurve2D: folder(
+      {
+        Color: {
+          value: '#ff0000'
+        },
+        z: {
+          value: 0,
+          step: 1
+        },
+        v1: {
+          value: 0,
+          step: 0.5
+        }, // start point of the curve
+        v2: {
+          value: 1,
+          step: 0.5
+        } // end point of the curve
       },
-      z : {
-        value: 0,
-        step: 1
-      },
-      v1: {
-        value: 0,
-        step: 0.5
-      }, // start point of the curve
-      v2: {
-        value: 1,
-        step: 0.5
-      } // end point of the curve
+      { collapsed: true }
+    ),
+    'Copy Component': button(() => {
+      copyComponent(Color, z, v1, v2)
     })
   })
   const curve = new THREE.LineCurve(new THREE.Vector2(v1, v2))

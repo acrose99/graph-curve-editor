@@ -7,7 +7,12 @@ import { useHelper, OrbitControls } from '@react-three/drei'
 import '../styles.css'
 import { folder, button, useControls } from 'leva'
 import Point from '../point'
-export default function CatmullRomCurve3() {
+import * as literals from '../literals'
+export default function CatmullRomCurve3() { //TODO ADD ability to add segments
+  function copyComponent(Color, segment1, segment2, segment3) {
+    console.log(`LineCurve2D: ${segment1} ${segment2} ${segment3}`)
+    alert(literals.CatmullRomCurve({ Color, segment1, segment2, segment3 }))
+  }
   const { Color, segment1, segment2, segment3, newSegment } = useControls({
     CatmullRomCurve3: folder({
       Color: {
@@ -28,6 +33,9 @@ export default function CatmullRomCurve3() {
         1: 1,
         z: 0
       }
+    }, {collapsed: true}),
+    'Copy Component': button(() => {
+      copyComponent(Color, segment1, segment2, segment3)
     })
   })
   const meshRef = useRef()

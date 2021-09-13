@@ -6,7 +6,12 @@ import { useHelper, OrbitControls } from '@react-three/drei'
 import '../styles.css'
 import { folder, button, useControls } from 'leva'
 import Point from '../point'
+import * as literals from '../literals'
 export default function EllipseCurve(props) {
+  function copyComponent(Color, z, ax, ay, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation) {
+    // console.log(Color, z, ax, ay, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation)
+    alert(literals.ellipseCurve({Color, z, ax, ay, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation}))
+  }
   //TODO: Add notice about ArcCurve
   const { Color, z, ax, ay, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation } = useControls({
     EllipseCurve: folder({
@@ -45,7 +50,10 @@ export default function EllipseCurve(props) {
         value: 0,
         step: Math.PI * 0.25
       } // rotation angle of the curve in radians
-    }, {collapsed: true })
+    }, {collapsed: true }),
+    'Copy Component': button(() => {
+      copyComponent(Color, z, ax, ay, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation)
+    })
   })
   const curve = new THREE.EllipseCurve(
     ax,

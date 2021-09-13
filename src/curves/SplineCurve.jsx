@@ -7,34 +7,44 @@ import { useHelper, OrbitControls } from '@react-three/drei'
 import '../styles.css'
 import { folder, button, useControls } from 'leva'
 import Point from '../point'
+import * as literals from '../literals'
 export default function SplineCurve() { //TODO add a way to add points
-  const {Color, z, segment1, segment2, segment3, newSegment } = useControls({
-    SplineCurve: folder({
-      Color: {
-        value: '#ff0000'
+  function copyComponent(Color, z, segment1, segment2, segment3) {
+    alert(literals.splineCurve({Color, z, segment1, segment2, segment3}))
+  }
+  const { Color, z, segment1, segment2, segment3, newSegment } = useControls({
+    SplineCurve: folder(
+      {
+        Color: {
+          value: '#ff0000'
+        },
+        z: {
+          value: 0
+        },
+        segment1: {
+          0: -1,
+          1: 1
+        },
+        segment2: {
+          0: 0,
+          1: 0
+        },
+        segment3: {
+          0: 1,
+          1: 1
+        }
+        // newSegment: {
+        //   0: 5,
+        //   1: 5
+        // },
+        // addSegment: button(() => {
+        //   addCurve(new THREE.Vector2(newSegment[0], newSegment[1]))
+        // })
       },
-      z: {
-        value: 0
-      },
-      segment1: {
-        0: -1,
-        1: 1
-      },
-      segment2: {
-        0: 0,
-        1: 0
-      },
-      segment3: {
-        0: 1,
-        1: 1
-      }
-      // newSegment: {
-      //   0: 5,
-      //   1: 5
-      // },
-      // addSegment: button(() => {
-      //   addCurve(new THREE.Vector2(newSegment[0], newSegment[1]))
-      // })
+      { collapsed: true }
+    ),
+    'Copy Component': button(() => {
+      copyComponent(Color, z, segment1, segment2, segment3)
     })
   })
   const meshRef = useRef()

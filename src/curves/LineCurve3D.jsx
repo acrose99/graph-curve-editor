@@ -7,7 +7,13 @@ import { useHelper, OrbitControls } from '@react-three/drei'
 import '../styles.css'
 import { folder, button, useControls } from 'leva'
 import Point from '../point'
+import * as literals from '../literals'
+
 export default function LineCurve3D() {
+  function copyComponent(Color, z, v1, v2) {
+      // console.log(Color, z, ax, ay, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation)
+      alert(literals.lineCurve3D({ Color, z, v1, v2 }))
+  }
   const {Color, v1, v2, z } = useControls({
     LineCurve3D: folder({
       Color: {
@@ -25,6 +31,11 @@ export default function LineCurve3D() {
         value: 0,
         step: 0.5
       } // z position of the curve
+      },
+      { collapsed: true }
+    ),
+    'Copy Component': button(() => {
+      copyComponent(Color, v1, v2, z)
     })
   })
   const ref = useRef()

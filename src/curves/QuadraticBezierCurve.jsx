@@ -7,33 +7,43 @@ import { useHelper, OrbitControls } from '@react-three/drei'
 import '../styles.css'
 import { folder, button, useControls } from 'leva'
 import Point from '../point'
+import * as literals from '../literals'
 export default function QuadraticBezierCurve3() {
+  function copyComponent(Color, startPoint, midPoint, ) {
+     alert(literals.quadraticBezierCurve2D({ Color, startPoint, midPoint, endPoint }))
+  }
   const { Color, z, startPoint, midPoint, endPoint } = useControls({
-    QuadraticBezierCurve: folder({
-      Color: {
-        value: '#ff0000'
+    QuadraticBezierCurve: folder(
+      {
+        Color: {
+          value: '#ff0000'
+        },
+        z: {
+          value: 0
+        },
+        startPoint: {
+          x: -1,
+          y: 1
+        },
+        midPoint: {
+          x: 0,
+          y: 0
+        },
+        endPoint: {
+          x: 1,
+          y: 1
+        }
       },
-      z: {
-        value: 0
-      },
-      startPoint: {
-        x: -1,
-        y: 1
-      },
-      midPoint: {
-        x: 0,
-        y: 0
-      },
-      endPoint: {
-        x: 1,
-        y: 1
-      }
+      { collapsed: true }
+    ),
+    'Copy Component': button(() => {
+      copyComponent(Color, startPoint, midPoint, endPoint)
     })
   })
   const ref = useRef()
   const curve = new THREE.QuadraticBezierCurve(new THREE.Vector2(startPoint.x, startPoint.y), new THREE.Vector2(midPoint.x, midPoint.y), new THREE.Vector2(endPoint.x, endPoint.y))
   const points = curve.getPoints(100)
-  const [pointPosition, setPointPosition] = useState(() => new THREE.Vector3(startPoint.x, startPoint.y, z))
+ const [pointPosition, setPointPosition] = useState(() => new THREE.Vector3(startPoint.x, startPoint.y, z))
   useFrame(({ clock }) => {
     let point = points[Math.floor((clock.getElapsedTime() * 4) % 100)]
     let px = point.x

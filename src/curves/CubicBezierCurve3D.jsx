@@ -7,32 +7,42 @@ import { useHelper, OrbitControls, CubicBezierLine } from '@react-three/drei'
 import '../styles.css'
 import { folder, button, useControls } from 'leva'
 import Point from '../point'
+import * as literals from '../literals'
 function CubicBezierCurve3D() { //todo UNDO DREI 
-  const {Color, startPoint, midPointA, midPointB, endPoint } = useControls({
-    'Curve Segments': folder({
-      Color: {
-        value: '#ff0000'
+  function copyComponent(Color, startPoint, midPointA, midPointB, endPoint) {
+    alert(literals.CubicBezierCurve3D({Color, startPoint, midPointA, midPointB, endPoint}))
+  }
+  const { Color, startPoint, midPointA, midPointB, endPoint } = useControls({
+    'Curve Segments': folder(
+      {
+        Color: {
+          value: '#ff0000'
+        },
+        startPoint: {
+          0: -1,
+          1: 1,
+          z: 0
+        },
+        midPointA: {
+          0: 0,
+          1: 0,
+          z: 0
+        },
+        midPointB: {
+          0: 1,
+          1: 1,
+          z: 0
+        },
+        endPoint: {
+          0: 1,
+          1: 1,
+          z: 0
+        }
       },
-      startPoint: {
-        0: -1,
-        1: 1,
-        z: 0
-      },
-      midPointA: {
-        0: 0,
-        1: 0,
-        z: 0
-      },
-      midPointB: {
-        0: 1,
-        1: 1,
-        z: 0
-      },
-      endPoint: {
-        0: 1,
-        1: 1,
-        z: 0
-      }
+      { collapsed: true }
+    ),
+    'Copy Component': button(() => {
+      copyComponent(Color, startPoint, midPointA, midPointB, endPoint)
     })
   })
   const ref = useRef()

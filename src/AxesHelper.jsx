@@ -12,7 +12,7 @@ function AxesHelper() {
       {
         'Axes Visible': true,
         'Axes Scale': 2,
-        'Axes Position': [0, 0, 0]
+        'Axes Position': [0, 0, .5]
       },
       { collapsed: true }
     )
