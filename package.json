@@ -1,5 +1,5 @@
 {
-  "name": "graph-curve-editor",
+  "name": "curve-editor",
   "version": "0.0.1",
   "description": "Edit and create diffrent curves using React Three Fiber and React Spring",
   "keywords": [
